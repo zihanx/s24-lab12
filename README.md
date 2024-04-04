@@ -1,4 +1,4 @@
-# Lab 10 - Testing in the Real World
+# Lab 12 - Test Double (Fakes, Mocks, & Stubs)
 
 This recitation is an introduction to test doubles.
 
@@ -33,7 +33,7 @@ These three terms are usually used interchangeably in practice, but there are so
 
 ## Instructions
 
-Clone the AndrewWS repository from https://github.com/CMU-17-214/f23-lab10. Run the following commands to get started:
+Clone the AndrewWS repository from https://github.com/CMU-17-214/s24-lab12. Run the following commands to get started:
 ```
 mvn install
 mvn test
@@ -46,19 +46,19 @@ All of your tests should be written in `AndrewWebServicesTest.java`. You will al
 
 We will be using the mocking framework [Mockito](https://site.mockito.org/) in this lab. Here is a simple example to get you familiar with the important parts of Mockito.
 
-We'll use the `Comics` class for this example. The `Comics` class represents a mapping from characters to the Comics they belong to.
+We'll use the `Cartoons` class for this example. The `Cartoons` class represents a mapping from characters to the cartoons they belong to.
 ```
-public class Comics {
-	private Map<String, String> charactersToComics;
+public class Cartoons {
+	private Map<String, String> charactersToCartoons;
 
 	public String get(String character) {
-		return charactersToComics.get(character);
+		return charactersToCartoons.get(character);
 	}
 }
 ```
-We use the `mock` method to create a mock of `Comics`:
+We use the `mock` method to create a mock of `Cartoons`:
 ```
-Comics ourMock = mock(Comics.class);
+Cartoons ourMock = mock(Cartoons.class);
 ```
 
 Now we can use the `when` and `thenReturn` methods to add behavior to our mocked class (aka stub a method call):
@@ -71,15 +71,15 @@ So, we've specified that whenever we call `get("Snoopy")`, our mocked class shou
 
 Next, we execute a method call on our mock:
 ```
-String snoopyComic = ourMock.get("Snoopy");
+String snoopyCartoon = ourMock.get("Snoopy");
 ```
 
 Now we use the `verify` method to check that our method was called with the given arguments. The following lines confirm that we invoked the `get` method on the mock and that the method returned a value that matches the expectation we set before:
 ```
 verify(ourMock).get("Snoopy");
-assertEquals(snoopyComic, "Peanuts")
+assertEquals(snoopyCartoon, "Peanuts")
 ```
 
-So, now we've successfully mocked the `Comics` class and used a stub method call to write a test for the `get` method in `Comics`.
+So, now we've successfully mocked the `Cartoons` class and used a stub method call to write a test for the `get` method in `Cartoons`.
 
 This example covered everything you need to know for mocks in this lab. Feel free to checkout the [Mockito website](https://site.mockito.org/) for more information and documentation on the methods we used above, or look online for other examples using Mockito if the one above wasn't clear. Also, ask your TAs or ask on Piazza if you need any further help. Good luck!
